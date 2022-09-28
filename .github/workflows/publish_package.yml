@@ -1,7 +1,7 @@
 name: Ziggeo Publish SDK
 on:
   push:
-    branches: [ 'feature_publish_sdk' ]
+    branches: [ 'master' ]
 
 jobs:
   drive_android:
