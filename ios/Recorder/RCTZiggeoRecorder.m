@@ -302,6 +302,19 @@ RCT_EXPORT_METHOD(showImage:(NSArray *)imageTokens
     });
 }
 
+RCT_EXPORT_METHOD(showImages:(NSArray *)imageTokens
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    if (m_ziggeo == nil) return;
+    m_context.resolveBlock = resolve;
+    m_context.rejectBlock = reject;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->m_ziggeo showImages:imageTokens];
+    });
+}
+
 RCT_REMAP_METHOD(startAudioRecorder,
                  startAudioRecorderResolver:(RCTPromiseResolveBlock)resolve
                  startAudioRecorderRejecter:(RCTPromiseRejectBlock)reject)
@@ -325,6 +338,45 @@ RCT_EXPORT_METHOD(startAudioPlayer:(NSArray *)audioTokens
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->m_ziggeo startAudioPlayer:audioTokens];
+    });
+}
+
+RCT_EXPORT_METHOD(startAudiosPlayer:(NSArray *)audioTokens
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    if (m_ziggeo == nil) return;
+    m_context.resolveBlock = resolve;
+    m_context.rejectBlock = reject;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->m_ziggeo startAudiosPlayer:audioTokens];
+    });
+}
+
+RCT_EXPORT_METHOD(playAudio:(NSString *)audioToken
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    if (m_ziggeo == nil) return;
+    m_context.resolveBlock = resolve;
+    m_context.rejectBlock = reject;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->m_ziggeo playAudio:audioToken];
+    });
+}
+
+RCT_EXPORT_METHOD(playAudios:(NSArray *)audioTokens
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    if (m_ziggeo == nil) return;
+    m_context.resolveBlock = resolve;
+    m_context.rejectBlock = reject;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->m_ziggeo playAudios:audioTokens];
     });
 }
 

@@ -41,16 +41,28 @@ RCT_EXPORT_METHOD(setClientAuthToken:(NSString *)token)
 }
 
 
-RCT_EXPORT_METHOD(playVideo:(NSArray *)videoTokens)
+RCT_EXPORT_METHOD(playVideo:(NSString *)videoToken)
 {
     if (m_ziggeo == nil) return;
-    [m_ziggeo playVideo:videoTokens];
+    [m_ziggeo playVideo:videoToken];
 }
 
-RCT_EXPORT_METHOD(playFromUri:(NSArray *)urls)
+RCT_EXPORT_METHOD(playVideos:(NSArray *)videoTokens)
 {
     if (m_ziggeo == nil) return;
-    [m_ziggeo playFromUri:urls];
+    [m_ziggeo playVideos:videoTokens];
+}
+
+RCT_EXPORT_METHOD(playFromUri:(NSString *)url)
+{
+    if (m_ziggeo == nil) return;
+    [m_ziggeo playFromUri:url];
+}
+
+RCT_EXPORT_METHOD(playFromUris:(NSArray *)urls)
+{
+    if (m_ziggeo == nil) return;
+    [m_ziggeo playFromUris:urls];
 }
 
 RCT_EXPORT_METHOD(setExtraArgsForPlayer:(NSDictionary *)map)
