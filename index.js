@@ -148,6 +148,9 @@ export default {
     startScreenRecorder: async function () {
         return ZiggeoRecorder.startScreenRecorder();
     },
+    startScreenRecorder: async function (appGroup, preferredExtension) {
+        return ZiggeoRecorder.startScreenRecorder(appGroup, preferredExtension);
+    },
     uploadFromPath: async function (fileName, createObject: CreateObject) {
         return ZiggeoRecorder.uploadFromPath(fileName, createObject);
     },
