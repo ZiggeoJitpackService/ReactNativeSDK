@@ -40,13 +40,13 @@ RCT_EXPORT_METHOD(setClientAuthToken:(NSString *)token)
 }
 
 
-RCT_EXPORT_METHOD(playVideo:(NSArray *)videoTokens)
+RCT_EXPORT_METHOD(playVideo:(NSString *)videoToken)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[ZiggeoConstants sharedZiggeoInstance] playVideo:videoTokens];
 }
 
-RCT_EXPORT_METHOD(playFromUri:(NSArray *)urls)
+RCT_EXPORT_METHOD(playVideos:(NSArray *)videoTokens)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[ZiggeoConstants sharedZiggeoInstance] playFromUri:urls];
