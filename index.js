@@ -147,6 +147,7 @@ export default {
     },
     showImage: async function (...token: string) {
         return ZiggeoRecorder.showImage(token);
+    },
     /**
      * New added function
      */

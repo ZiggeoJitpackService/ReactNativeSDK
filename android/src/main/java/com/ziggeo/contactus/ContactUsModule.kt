@@ -30,4 +30,23 @@ class ContactUsModule(reactContext: ReactApplicationContext) : BaseModule(reactC
         ziggeo.sendEmailToSupport()
         task.resolve(null)
     }
+
+    @ReactMethod
+    fun setAppToken(appToken: String) {
+        ziggeo.appToken = appToken
+    }
+
+    // we must override this method to make @ReactMethod annotation work
+    @ReactMethod
+    override fun setClientAuthToken(token: String) {
+        super.setClientAuthToken(token)
+    }
+
+    // we must override this method to make @ReactMethod annotation work
+    @ReactMethod
+    override fun setServerAuthToken(token: String) {
+        super.setServerAuthToken(token)
+    }
+
+
 }
