@@ -173,9 +173,6 @@ export default {
         ZiggeoPlayer.playFromUris(urls);
     },
     /***********************/
-    startScreenRecorder: async function () {
-        return ZiggeoRecorder.startScreenRecorder();
-    },
     startScreenRecorder: async function (appGroup, preferredExtension) {
         return ZiggeoRecorder.startScreenRecorder(appGroup, preferredExtension);
     },

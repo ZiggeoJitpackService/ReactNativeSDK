@@ -224,7 +224,7 @@ class ZiggeoRecorderModule(reactContext: ReactApplicationContext) : BaseModule(r
     }
 
     @ReactMethod
-    fun startScreenRecorder(promise: Promise?) {
+    fun startScreenRecorder(appGroup: String?, preferredExtension: String?, promise: Promise?) {
         val task = RecordVideoTask(promise!!)
         ziggeo.recorderConfig.callback = prepareRecorderCallback(task)
         ziggeo.uploadingConfig.callback = prepareUploadingCallback(task)
