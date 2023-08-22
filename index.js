@@ -32,7 +32,7 @@ export default {
         Videos.setClientAuthToken(token);
         Audios.setClientAuthToken(token);
         Images.setClientAuthToken(token);
-        ContactUs.setClientAuthToken(appToken);
+        ContactUs.setClientAuthToken(token);
     },
     setServerAuthToken: function (token: string) {
         ZiggeoPlayer.setServerAuthToken(token);
@@ -40,7 +40,7 @@ export default {
         Videos.setServerAuthToken(token);
         Audios.setServerAuthToken(token);
         Images.setServerAuthToken(token);
-        ContactUs.setServerAuthToken(appToken);
+        ContactUs.setServerAuthToken(token);
     },
     sendReport(logsList) {
         ContactUs.sendReport(logsList);
