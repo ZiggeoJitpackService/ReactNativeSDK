@@ -73,7 +73,7 @@ dependencies {
     def androidX = '1.2.0'
     implementation "androidx.appcompat:appcompat:$androidX"
     implementation "com.google.code.gson:gson:2.8.6"
-    implementation('com.ziggeo:android-sdk-reactnativeblur:2.6.17') {
+    implementation('com.ziggeo:android-sdk-reactnativeblur:2.6.19') {
         transitive = true
     }
     //todo old implementation
