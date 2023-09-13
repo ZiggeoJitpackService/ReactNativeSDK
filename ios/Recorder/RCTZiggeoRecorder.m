@@ -1,8 +1,3 @@
-//
-//  RCTZiggeoRecorder.m
-//
-//  Copyright © 2017 Ziggeo. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import "RCTZiggeoRecorder.h"
@@ -55,17 +50,17 @@ ZiggeoRecorderInterfaceConfig *parseRecorderInterfaceConfig(NSDictionary *config
     if (recordButtonConfig && [recordButtonConfig isKindOfClass:[NSDictionary class]]) {
         conf.recordButton = parseButtonConfig(recordButtonConfig);
     }
-    
+
     id closeButtonConfig = config[@"closeButton"];
     if (closeButtonConfig && [closeButtonConfig isKindOfClass:[NSDictionary class]]) {
         conf.closeButton = parseButtonConfig(closeButtonConfig);
     }
-    
+
     id cameraFlipButtonConfig = config[@"cameraFlipButton"];
     if (cameraFlipButtonConfig && [cameraFlipButtonConfig isKindOfClass:[NSDictionary class]]) {
         conf.cameraFlipButton = parseButtonConfig(cameraFlipButtonConfig);
     }
-    
+
     return conf;
 }
 
@@ -101,7 +96,7 @@ RCT_EXPORT_MODULE();
 
 - (void)applyAdditionalParams:(NSDictionary*)map context:(ZiggeoRecorderContext*)context {
     context.extraArgs = map;
-    
+
     if (map != nil) {
         if ([map objectForKey:@"max_duration"] != nil) {
             context.maxAllowedDurationInSeconds = [[map objectForKey:@"max_duration"] intValue];
@@ -117,7 +112,7 @@ RCT_EXPORT_METHOD(setAppToken:(NSString *)token)
 {
     RCTLogInfo(@"application token set: %@", token);
     _appToken = token;
-    
+
     [ZiggeoConstants setAppToken:_appToken];
     [[ZiggeoConstants sharedZiggeoRecorderContextInstance] setRecorder:self];
 }
@@ -176,6 +171,11 @@ RCT_EXPORT_METHOD(setBlurMode:(BOOL)enabled)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[ZiggeoConstants sharedZiggeoInstance] setBlurMode:enabled];
+}
+RCT_EXPORT_METHOD(setPausableMode:(BOOL)enabled)
+{
+    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
+    [[ZiggeoConstants sharedZiggeoInstance] setIsPausedMode:enabled];
 }
 
 RCT_EXPORT_METHOD(setExtraArgsForRecorder:(NSDictionary*)map)
@@ -281,7 +281,7 @@ RCT_REMAP_METHOD(startImageRecorder,
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].resolveBlock = resolve;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].rejectBlock = reject;
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [[ZiggeoConstants sharedZiggeoInstance] startImageRecorder];
     });
@@ -320,7 +320,7 @@ RCT_EXPORT_METHOD(startAudioPlayer:(NSArray *)audioTokens
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].resolveBlock = resolve;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].rejectBlock = reject;
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [[ZiggeoConstants sharedZiggeoInstance] startAudioPlayer:audioTokens];
     });
@@ -348,7 +348,7 @@ RCT_EXPORT_METHOD(uploadFromPath:(NSString*)fileName
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].resolveBlock = resolve;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].rejectBlock = reject;
-    
+
     if (fileName != nil) {
         [[ZiggeoConstants sharedZiggeoInstance] uploadFromPath:fileName
                                                           Data:map
@@ -385,7 +385,7 @@ RCT_EXPORT_METHOD(cancelCurrentUpload:(BOOL)delete_file
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].resolveBlock = resolve;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].rejectBlock = reject;
-    
+
     [[ZiggeoConstants sharedZiggeoInstance] cancelUpload:@"" :delete_file];
 }
 
@@ -397,7 +397,7 @@ RCT_EXPORT_METHOD(cancelUploadByPath:(NSString *)path
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].resolveBlock = resolve;
     [ZiggeoConstants sharedZiggeoRecorderContextInstance].rejectBlock = reject;
-    
+
     [[ZiggeoConstants sharedZiggeoInstance] cancelUpload:path :delete_file];
 }
 
