@@ -71,6 +71,30 @@ typedef enum {
     QR_DECODED,
 } ZIGGEO_EVENTS;
 
+typedef enum {
+    BYTES_SENT,
+    BYTES_TOTAL,
+    FILE_NAME,
+    PATH,
+    QR,
+    TOKEN,
+    
+    PERMISSIONS,
+    SOUND_LEVEL,
+    SECONDS_LEFT,
+    MILLIS_PASSED,
+    MILLIS,
+    FILES,
+    VALUE,
+
+    // Streaming
+    MEDIA_TYPES,
+    BLUR_EFFECT,
+    CLIENT_AUTH,
+    SERVER_AUTH,
+    TAGS,
+} Ziggeo_Keys_Type;
+
 #define kZiggeoEventsArray @"CameraOpened", @"CameraClosed", \
     @"Loaded", @"CancelledByUser", \
     @"Error", \
@@ -105,7 +129,7 @@ typedef enum {
 @interface ZiggeoConstants: NSObject
 
 + (NSString *)getEventString:(ZIGGEO_EVENTS)event;
-+ (NSString *)getKeyString:(Ziggeo_Key_Type)key;
++ (NSString *)getKeyString:(Ziggeo_Keys_Type)key;
 + (void)setAppToken:(NSString *)appToken;
 + (Ziggeo *)sharedZiggeoInstance;
 + (ZiggeoRecorderContext *)sharedZiggeoRecorderContextInstance;

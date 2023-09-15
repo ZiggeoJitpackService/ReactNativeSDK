@@ -30,13 +30,13 @@ RCT_EXPORT_VIEW_PROPERTY(ref, NSString);
         // todo? [m_ziggeo.config setRecorderCacheConfig:self.cacheConfig];
 
         ZiggeoRecorder* recorder = [[ZiggeoRecorder alloc] initWithZiggeoApplication:[ZiggeoConstants sharedZiggeoInstance]];
-        recorder.controlsVisible = false;
-
-        // settings controlsVisible to false also sets autostart, send immediately and max video duration.
-        // Setting everything back because we will actually have custom UI  so these settings are not needed
-        recorder.sendImmediately = false;
-        recorder.autostartRecordingAfterSeconds = 0;
-        recorder.maxRecordedDurationSeconds = 0;
+//        recorder.controlsVisible = false;
+//
+//        // settings controlsVisible to false also sets autostart, send immediately and max video duration.
+//        // Setting everything back because we will actually have custom UI  so these settings are not needed
+//        recorder.sendImmediately = false;
+//        recorder.autostartRecordingAfterSeconds = 0;
+//        recorder.maxRecordedDurationSeconds = 0;
         recorder.videoPreview = nil; // we don't need any UI because it's a customizable component
 
         [RCTZCameraModule setLastZiggeoRecorder:recorder];

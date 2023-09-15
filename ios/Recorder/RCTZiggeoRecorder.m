@@ -146,114 +146,115 @@ RCT_EXPORT_METHOD(setRecorderInterfaceConfig:(NSDictionary *)config)
 RCT_EXPORT_METHOD(setUploadingConfig:(NSDictionary *)config)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setUploadingConfig:config];
+//    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setUploadingConfig:config];
 }
 
 RCT_EXPORT_METHOD(setLiveStreamingEnabled:(BOOL)enabled)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setLiveStreamingEnabled:enabled];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setIsLiveStreaming:enabled];
 }
 
-RCT_EXPORT_METHOD(setAutostartRecordingAfter:(NSInteger)seconds)
+RCT_EXPORT_METHOD(setAutostartRecordingAfter:(BOOL)enabled)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setAutostartRecordingAfter:(int)seconds];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setShouldAutoStartRecording:enabled];
 }
 
 RCT_EXPORT_METHOD(setStartDelay:(NSInteger)delay)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setStartDelay:(int)delay];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setStartDelay:(int)delay];
 }
 
 RCT_EXPORT_METHOD(setBlurMode:(BOOL)enabled)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setBlurMode:enabled];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setBlurMode:enabled];
 }
 RCT_EXPORT_METHOD(setPausableMode:(BOOL)enabled)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setIsPausedMode:enabled];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setIsPausedMode:enabled];
 }
 
 RCT_EXPORT_METHOD(setExtraArgsForRecorder:(NSDictionary*)map)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setExtraArgsForRecorder:map];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setExtraArgs:map];
 }
 
 RCT_EXPORT_METHOD(setThemeArgsForRecorder:(NSDictionary*)map)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setThemeArgsForRecorder:map];
+//    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setThemeArgsForRecorder:map];
 }
 
 RCT_EXPORT_METHOD(setCoverSelectorEnabled:(BOOL)enabled)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setCoverSelectorEnabled:enabled];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setShouldEnableCoverShot:enabled];
 }
 
 RCT_EXPORT_METHOD(setMaxRecordingDuration:(NSInteger)seconds)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setMaxRecordingDuration:(int)seconds];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setMaxDuration:(long)seconds];
 }
 
 RCT_EXPORT_METHOD(setVideoWidth:(NSInteger)videoWidth)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setVideoWidth:(int)videoWidth];
+//    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setVideoWidth:(int)videoWidth];
 }
 
 RCT_EXPORT_METHOD(setVideoHeight:(NSInteger)videoHeight)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setVideoHeight:(int)videoHeight];
+//    [[ZiggeoConstants sharedZiggeoInstance] setVideoHeight:(int)videoHeight];
 }
 
 RCT_EXPORT_METHOD(setVideoBitrate:(NSInteger)videoBitrate)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setVideoBitrate:(int)videoBitrate];
+//    [[ZiggeoConstants sharedZiggeoInstance] setVideoBitrate:(int)videoBitrate];
 }
 
 RCT_EXPORT_METHOD(setAudioSampleRate:(NSInteger)audioSampleRate)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setAudioSampleRate:(int)audioSampleRate];
+//    [[ZiggeoConstants sharedZiggeoInstance] setAudioSampleRate:(int)audioSampleRate];
 }
 
 RCT_EXPORT_METHOD(setAudioBitrate:(NSInteger)audioBitrate)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setAudioBitrate:(int)audioBitrate];
+//    [[ZiggeoConstants sharedZiggeoInstance] setAudioBitrate:(int)audioBitrate];
 }
 
 RCT_EXPORT_METHOD(setCameraSwitchEnabled:(BOOL)visible)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setCameraSwitchEnabled:visible];
+//    [[ZiggeoConstants sharedZiggeoInstance] setCameraSwitchEnabled:visible];
 }
 
 RCT_EXPORT_METHOD(setSendImmediately:(BOOL)sendImmediately)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setSendImmediately:sendImmediately];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setShouldSendImmediately:sendImmediately];
 }
 
-RCT_EXPORT_METHOD(setQuality:(id)quality)
+RCT_EXPORT_METHOD(setQuality:(int)quality)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setQuality:(int)quality];
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setVideoQuality:(int)quality];
 }
 
 RCT_EXPORT_METHOD(setCamera:(id)cameraDevice)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setCamera:(NSString *)cameraDevice];
+    //todo
+    [[[ZiggeoConstants sharedZiggeoInstance] recorderConfig] setFacing:(NSString *)cameraDevice];
 }
 
 // MARK: - Videos
@@ -351,10 +352,10 @@ RCT_EXPORT_METHOD(uploadFromPath:(NSString*)fileName
 
     if (fileName != nil) {
         [[ZiggeoConstants sharedZiggeoInstance] uploadFromPath:fileName
-                                                          Data:map
-                                                      Callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
-        } Progress:^(int totalBytesSent, int totalBytesExpectedToSend) {
-        } ConfirmCallback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+                                                          data:map
+                                                      callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+        } progress:^(int totalBytesSent, int totalBytesExpectedToSend) {
+        } confirmCallback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         }];
     } else {
         reject(@"ERR_NOFILE", @"empty filename", [NSError errorWithDomain:@"recorder" code:0 userInfo:@{@"ERR_NOFILE": @"empty filename"}]);
@@ -374,7 +375,7 @@ RCT_EXPORT_METHOD(uploadFromFileSelector:(NSDictionary*)map
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableDictionary *data = [NSMutableDictionary dictionary];
         data[@"media_types"] = @[@"video", @"audio", @"image"];
-        [[ZiggeoConstants sharedZiggeoInstance] uploadFromFileSelector:data];
+//        [[ZiggeoConstants sharedZiggeoInstance] uploadFromFileSelector:data];
     });
 }
 
@@ -414,7 +415,7 @@ RCT_EXPORT_METHOD(startQrScanner:(NSDictionary*)map
     context.rejectBlock = reject;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [ziggeo startQrScanner:map];
+        [ziggeo startQrScanner];
     });
 }
 

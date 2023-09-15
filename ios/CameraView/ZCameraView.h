@@ -36,7 +36,7 @@
 //resolution
 @property (nonatomic) int videoWidth;
 @property (nonatomic) int videoHeight;
-@property (nonatomic) RecordingQuality recordingQuality;
+@property (nonatomic) int recordingQuality;
 @property (nonatomic) int videoBitrate;
 @property (nonatomic) int audioSampleRate;
 @property (nonatomic) int audioBitrate;

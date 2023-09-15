@@ -9,7 +9,7 @@
     return [typeArray objectAtIndex:event];
 }
 
-+ (NSString *)getKeyString:(Ziggeo_Key_Type)key {
++ (NSString *)getKeyString:(Ziggeo_Keys_Type)key {
     NSArray *typeArray = [[NSArray alloc] initWithObjects:kZiggeoKeysArray];
     return [typeArray objectAtIndex:key];
 }

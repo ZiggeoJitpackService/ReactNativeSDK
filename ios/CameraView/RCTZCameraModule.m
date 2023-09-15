@@ -7,10 +7,11 @@
 RCT_EXPORT_MODULE();
 
 static ZiggeoRecorder *lastZiggeoRecorder;
+static RecorderConfig *lastZiggeoConfig;
 
 RCT_EXPORT_METHOD(startRecording:(NSString *)path maxDuration:(int)maxDuration) {
-    if (lastZiggeoRecorder != nil) {
-        lastZiggeoRecorder.maxRecordedDurationSeconds = (double)maxDuration;
+    if (lastZiggeoConfig != nil && lastZiggeoRecorder != nil) {
+        lastZiggeoConfig.maxDuration = (double)maxDuration;
         [lastZiggeoRecorder startRecordingToFile:path];
     }
 }

@@ -43,25 +43,26 @@ RCT_EXPORT_METHOD(setClientAuthToken:(NSString *)token)
 RCT_EXPORT_METHOD(playVideo:(NSString *)videoToken)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] playVideo:videoTokens];
+    [[ZiggeoConstants sharedZiggeoInstance] playVideo:videoToken];
 }
 
-RCT_EXPORT_METHOD(playVideos:(NSArray *)videoTokens)
+RCT_EXPORT_METHOD(playVideos:(NSArray *)urls)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] playFromUri:urls];
+    [[ZiggeoConstants sharedZiggeoInstance] playFromUris:urls];
 }
 
 RCT_EXPORT_METHOD(setExtraArgsForPlayer:(NSDictionary *)map)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setExtraArgsForPlayer:map];
+    [[[ZiggeoConstants sharedZiggeoInstance] playerConfig] setExtraArgs:map];
 }
 
 RCT_EXPORT_METHOD(setThemeArgsForPlayer:(NSDictionary *)map)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setThemeArgsForPlayer:map];
+    //todo
+//    [[[ZiggeoConstants sharedZiggeoInstance] playerConfig] setThemeArgsForPlayer:map];
 }
 
 RCT_EXPORT_METHOD(setPlayerCacheConfig:(NSDictionary *)config)
@@ -73,7 +74,7 @@ RCT_EXPORT_METHOD(setPlayerCacheConfig:(NSDictionary *)config)
 RCT_EXPORT_METHOD(setAdsURL:(NSString *)url)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setAdsURL:url];
+    [[[ZiggeoConstants sharedZiggeoInstance] playerConfig] setAdsUri:url];
 }
 
 @end

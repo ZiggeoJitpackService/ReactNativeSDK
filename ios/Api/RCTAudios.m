@@ -80,7 +80,7 @@ RCT_EXPORT_METHOD(index:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)res
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[[ZiggeoConstants sharedZiggeoInstance] audios] index:map
-                                                  Callback:^(NSArray *jsonArray, NSError *error) {
+                                                  callback:^(NSArray *jsonArray, NSError *error) {
         if (error == NULL) {
             resolve(jsonArray);
         } else {
@@ -93,7 +93,7 @@ RCT_EXPORT_METHOD(destroy:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBloc
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[[ZiggeoConstants sharedZiggeoInstance] audios] destroy:tokenOrKey
-                                                    Callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+                                                    callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(jsonObject);
         } else {
@@ -106,8 +106,8 @@ RCT_EXPORT_METHOD(get:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBlock)re
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[[ZiggeoConstants sharedZiggeoInstance] audios] get:tokenOrKey
-                                                    Data:NULL
-                                                Callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
+                                                    data:NULL
+                                                callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
         resolve(content);
     }];
 }
@@ -116,13 +116,13 @@ RCT_EXPORT_METHOD(create:(NSString *)file map:(NSDictionary *)map resolver:(RCTP
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[[ZiggeoConstants sharedZiggeoInstance] audios] create:file
-                                                       Data:map
-                                                   Callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+                                                       data:map
+                                                   callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         if (error != NULL) {
             reject(@"ERR_AUDIOS", @"audio create error", error);
         }
-    } Progress:^(int totalBytesSent, int totalBytesExpectedToSend) {
-    } ConfirmCallback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+    } progress:^(int totalBytesSent, int totalBytesExpectedToSend) {
+    } confirmCallback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(jsonObject);
         } else {
@@ -134,7 +134,7 @@ RCT_EXPORT_METHOD(create:(NSString *)file map:(NSDictionary *)map resolver:(RCTP
 RCT_EXPORT_METHOD(update:(NSString *)token map:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] audios] update:token Data:map Callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
+    [[[ZiggeoConstants sharedZiggeoInstance] audios] update:token data:map callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(content);
         } else {

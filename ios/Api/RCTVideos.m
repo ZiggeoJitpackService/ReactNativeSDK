@@ -80,7 +80,7 @@ RCT_EXPORT_METHOD(index:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)res
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[[ZiggeoConstants sharedZiggeoInstance] videos] index:map
-                                                  Callback:^(NSArray *jsonArray, NSError *error) {
+                                                  callback:^(NSArray *jsonArray, NSError *error) {
         if (error == NULL) {
             resolve(jsonArray);
         } else {
@@ -93,7 +93,7 @@ RCT_EXPORT_METHOD(destroy:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBloc
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[[ZiggeoConstants sharedZiggeoInstance] videos] destroy:tokenOrKey
-                                                    Callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+                                                    callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(jsonObject);
         } else {
@@ -106,8 +106,8 @@ RCT_EXPORT_METHOD(get:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBlock)re
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
     [[[ZiggeoConstants sharedZiggeoInstance] videos] get:tokenOrKey
-                                                   Data:NULL
-                                               Callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
+                                                   data:NULL
+                                               callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
         resolve(content);
     }];
 }
@@ -115,14 +115,13 @@ RCT_EXPORT_METHOD(get:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBlock)re
 RCT_EXPORT_METHOD(create:(NSString *)file map:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] videos] create:file
-                                                       Data:map
-                                                   Callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+   
+    [[[ZiggeoConstants sharedZiggeoInstance] videos] create:file data:map callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         if (error != NULL) {
             reject(@"ERR_VIDEOS", @"video create error", error);
         }
-    } Progress:^(int totalBytesSent, int totalBytesExpectedToSend) {
-    } ConfirmCallback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+    } progress:^(int totalBytesSent, int totalBytesExpectedToSend) {
+    } confirmCallback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(jsonObject);
         } else {
@@ -134,9 +133,7 @@ RCT_EXPORT_METHOD(create:(NSString *)file map:(NSDictionary *)map resolver:(RCTP
 RCT_EXPORT_METHOD(update:(NSString *)token map:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
     if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] videos] update:token
-                                                       Data:map
-                                                   Callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
+    [[[ZiggeoConstants sharedZiggeoInstance] videos] update:token data:map callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(content);
         } else {
