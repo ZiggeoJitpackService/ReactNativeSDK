@@ -6,13 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@import AVKit;
 #import "RCTZiggeoPlayer.h"
 #import <ZiggeoMediaSDK/ZiggeoMediaSDK.h>
 #import <React/RCTLog.h>
-@import AVKit;
 #import "ZiggeoRecorderContext.h"
 #import "ZiggeoConstants.h"
+#import "ThemeKeys.h"
+#import "Events.h"
 
 @implementation RCTZiggeoPlayer {
     UIViewController *_adController;
@@ -40,41 +41,91 @@ RCT_EXPORT_METHOD(setClientAuthToken:(NSString *)token)
 }
 
 
-RCT_EXPORT_METHOD(playVideo:(NSString *)videoToken)
+RCT_EXPORT_METHOD(playVideo:(NSArray *)videoTokens)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] playVideo:videoToken];
+    if ([ZiggeoConstants shared] == nil) return;
+    [[ZiggeoConstants shared] playVideos:videoTokens];
 }
 
-RCT_EXPORT_METHOD(playVideos:(NSArray *)urls)
+RCT_EXPORT_METHOD(playVideos:(NSArray *)videoTokens)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] playFromUris:urls];
+    if ([ZiggeoConstants shared] == nil) return;
+    [[ZiggeoConstants shared] playVideos:videoTokens];
+}
+
+RCT_EXPORT_METHOD(playFromUri:(NSArray *)urls)
+{
+    if ([ZiggeoConstants shared] == nil) return;
+    [[ZiggeoConstants shared] playFromUris:urls];
+}
+
+RCT_EXPORT_METHOD(playFromUris:(NSArray *)urls)
+{
+    if ([ZiggeoConstants shared] == nil) return;
+    [[ZiggeoConstants shared] playFromUris:urls];
 }
 
 RCT_EXPORT_METHOD(setExtraArgsForPlayer:(NSDictionary *)map)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] playerConfig] setExtraArgs:map];
+    if ([ZiggeoConstants shared] == nil) return;
+    [[ZiggeoConstants shared].playerConfig setExtraArgs:map];
 }
 
 RCT_EXPORT_METHOD(setThemeArgsForPlayer:(NSDictionary *)map)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    //todo
-//    [[[ZiggeoConstants sharedZiggeoInstance] playerConfig] setThemeArgsForPlayer:map];
-}
-
-RCT_EXPORT_METHOD(setPlayerCacheConfig:(NSDictionary *)config)
-{
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[ZiggeoConstants sharedZiggeoInstance] setPlayerCacheConfig:config];
+    if ([ZiggeoConstants shared] == nil) return;
+    if ([map.allKeys containsObject:ThemeKeys.shared.KEY_HIDE_PLAYER_CONTROLS]) {
+        BOOL hideControls = [map[ThemeKeys.shared.KEY_HIDE_PLAYER_CONTROLS] boolValue];
+        [[ZiggeoConstants shared].playerConfig.style setHideControls:hideControls];
+    }
 }
 
 RCT_EXPORT_METHOD(setAdsURL:(NSString *)url)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] playerConfig] setAdsUri:url];
+    if ([ZiggeoConstants shared] == nil) return;
+    [[ZiggeoConstants shared].playerConfig setAdsUri:url];
 }
+
+// MARK: - Get functions
+RCT_REMAP_METHOD(getAppToken,
+                 resolver1:(RCTPromiseResolveBlock)resolve
+                 rejecter1:(RCTPromiseRejectBlock)reject)
+{
+    if ([ZiggeoConstants shared] == nil) reject(Events.shared.ERROR, @"Ziggeo is not initialized.", NULL);
+    else resolve([[ZiggeoConstants shared] getAppToken]);
+}
+
+RCT_REMAP_METHOD(getClientAuthToken,
+                 resolver2:(RCTPromiseResolveBlock)resolve
+                 rejecter2:(RCTPromiseRejectBlock)reject)
+{
+    if ([ZiggeoConstants shared] == nil) reject(Events.shared.ERROR, @"Ziggeo is not initialized.", NULL);
+    else resolve([[ZiggeoConstants shared] getClientAuthToken]);
+}
+
+RCT_REMAP_METHOD(getServerAuthToken,
+                 resolver3:(RCTPromiseResolveBlock)resolve
+                 rejecter3:(RCTPromiseRejectBlock)reject)
+{
+    if ([ZiggeoConstants shared] == nil) reject(Events.shared.ERROR, @"Ziggeo is not initialized.", NULL);
+    else resolve([[ZiggeoConstants shared] getServerAuthToken]);
+}
+
+RCT_REMAP_METHOD(getAdsURL,
+                 resolver4:(RCTPromiseResolveBlock)resolve
+                 rejecter4:(RCTPromiseRejectBlock)reject)
+{
+    if ([ZiggeoConstants shared] == nil) reject(Events.shared.ERROR, @"Ziggeo is not initialized.", NULL);
+    else resolve([[ZiggeoConstants shared].playerConfig getAdsUri]);
+}
+
+RCT_REMAP_METHOD(getThemeArgsForPlayer,
+                 resolver5:(RCTPromiseResolveBlock)resolve
+                 rejecter5:(RCTPromiseRejectBlock)reject)
+{
+    if ([ZiggeoConstants shared] == nil) reject(Events.shared.ERROR, @"Ziggeo is not initialized.", NULL);
+    else resolve([[ZiggeoConstants shared].playerConfig getExtraArgs]);
+}
+
 
 @end

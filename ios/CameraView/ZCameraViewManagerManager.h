@@ -13,7 +13,6 @@
 @interface ZCameraViewManagerManager: RCTViewManager
 
 @property (nonatomic, assign) NSString *style;
-
 @property (nonatomic, assign) NSString *ref;
 
 @end;

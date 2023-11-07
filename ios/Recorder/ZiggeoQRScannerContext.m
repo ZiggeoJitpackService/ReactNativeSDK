@@ -11,6 +11,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "RCTZiggeoRecorder.h"
 #import "ZiggeoConstants.h"
+#import "Events.h"
+#import "Keys.h"
 
 
 @implementation ZiggeoQRScannerContext {
@@ -26,7 +28,8 @@
     self.recorder = nil;
 }
 
-- (void)reject:(NSString*)code message:(NSString*)message {
+- (void)reject:(NSString*)code
+       message:(NSString*)message {
     if (_rejectBlock) {
         _rejectBlock(code, message, [NSError errorWithDomain:@"recorder" code:0 userInfo:@{code:message}]);
     }
@@ -49,16 +52,16 @@
 // MARK: - ZiggeoQRScannerDelegate
 - (void)qrCodeScaned:(NSString *)qrCode {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:QR_DECODED]
-                                body:@{[ZiggeoConstants getKeyString:VALUE]: qrCode}];
+        [_recorder sendEventWithName:Events.shared.QR_DECODED
+                                body:@{Keys.shared.VALUE: qrCode}];
     }
     [self resolve:qrCode];
 }
 
-- (void)qrCodeScanCancelledByUser {    
+- (void)qrCodeScanCancelledByUser {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:CANCELLED_BY_USER]
-                                body:@{@"type": @"QRScanner"}
+        [_recorder sendEventWithName:Events.shared.CANCELLED_BY_USER
+                                body:@{Keys.shared.TYPE: @"QRScanner"}
         ];
     }
     [self reject:@"ERR_CANCELLED" message:@"cancelled by the user"];

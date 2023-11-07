@@ -11,7 +11,9 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "RCTZiggeoRecorder.h"
 #import "ZiggeoConstants.h"
-
+#import "RecorderKeys.h"
+#import "Keys.h"
+#import "Events.h"
 
 @implementation ZiggeoRecorderContext {
     NSURLSessionTask *currentTask;
@@ -45,7 +47,7 @@
     }
     _recorder = recorder;
 
-    Ziggeo* m_ziggeo = [ZiggeoConstants sharedZiggeoInstance];
+    Ziggeo* m_ziggeo = [ZiggeoConstants shared];
     [m_ziggeo setHardwarePermissionDelegate:self];
     [m_ziggeo setUploadingDelegate:self];
     [m_ziggeo setFileSelectorDelegate:self];
@@ -61,11 +63,11 @@
 - (void)checkCameraPermission:(BOOL)granted {
     if (_recorder != nil) {
         if (granted) {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:ACCESS_GRANTED]
-                                    body:@{[ZiggeoConstants getKeyString:PERMISSIONS]: @"camera"}];
+            [_recorder sendEventWithName:Events.shared.ACCESS_GRANTED
+                                    body:@{Keys.shared.PERMISSIONS: @"camera"}];
         } else {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:ACCESS_FORBIDDEN]
-                                    body:@{[ZiggeoConstants getKeyString:PERMISSIONS]: @"camera"}];
+            [_recorder sendEventWithName:Events.shared.ACCESS_FORBIDDEN
+                                    body:@{Keys.shared.PERMISSIONS: @"camera"}];
         }
     }
 }
@@ -73,11 +75,11 @@
 - (void)checkMicrophonePermission:(BOOL)granted {
     if (_recorder != nil) {
         if (granted) {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:ACCESS_GRANTED]
-                                    body:@{[ZiggeoConstants getKeyString:PERMISSIONS]: @"microphone"}];
+            [_recorder sendEventWithName:Events.shared.ACCESS_GRANTED
+                                    body:@{Keys.shared.PERMISSIONS: @"microphone"}];
         } else {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:ACCESS_FORBIDDEN]
-                                    body:@{[ZiggeoConstants getKeyString:PERMISSIONS]: @"microphone"}];
+            [_recorder sendEventWithName:Events.shared.ACCESS_FORBIDDEN
+                                    body:@{Keys.shared.PERMISSIONS: @"microphone"}];
         }
     }
 }
@@ -85,11 +87,11 @@
 - (void)checkPhotoLibraryPermission:(BOOL)granted {
     if (_recorder != nil) {
         if (granted) {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:ACCESS_GRANTED]
-                                    body:@{[ZiggeoConstants getKeyString:PERMISSIONS]: @"photo_library"}];
+            [_recorder sendEventWithName:Events.shared.ACCESS_GRANTED
+                                    body:@{Keys.shared.PERMISSIONS: @"photo_library"}];
         } else {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:ACCESS_FORBIDDEN]
-                                    body:@{[ZiggeoConstants getKeyString:PERMISSIONS]: @"photo_library"}];
+            [_recorder sendEventWithName:Events.shared.ACCESS_FORBIDDEN
+                                    body:@{Keys.shared.PERMISSIONS: @"photo_library"}];
         }
     }
 }
@@ -97,9 +99,9 @@
 - (void)checkHasCamera:(BOOL)hasCamera {
     if (_recorder != nil) {
         if (hasCamera) {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:HAS_CAMERA] body:@{}];
+            [_recorder sendEventWithName:Events.shared.HAS_CAMERA body:@{}];
         } else {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:NO_CAMERA] body:@{}];
+            [_recorder sendEventWithName:Events.shared.NO_CAMERA body:@{}];
         }
     }
 }
@@ -107,9 +109,9 @@
 - (void)checkHasMicrophone:(BOOL)hasMicrophone {
     if (_recorder != nil) {
         if (hasMicrophone) {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:HAS_MIC] body:@{}];
+            [_recorder sendEventWithName:Events.shared.HAS_MIC body:@{}];
         } else {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:NO_MIC] body:@{}];
+            [_recorder sendEventWithName:Events.shared.NO_MIC body:@{}];
         }
     }
 }
@@ -122,95 +124,118 @@
 
 - (void)failedToUploadWithPath:(NSString *)sourcePath {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:ERROR] body:@{}];
+        [_recorder sendEventWithName:Events.shared.ERROR body:@{}];
     }
     [self reject:@"ERR_UNKNOWN" message:@"unknown upload error"];
 }
 
-- (void)uploadStartedWithPath:(NSString *)sourcePath token:(NSString *)token streamToken:(NSString *)streamToken backgroundTask:(NSURLSessionTask *)uploadingTask {
+- (void)uploadStartedWithPath:(NSString *)sourcePath
+                        token:(NSString *)token
+                  streamToken:(NSString *)streamToken
+               backgroundTask:(NSURLSessionTask *)uploadingTask {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:UPLOADING_STARTED]
-                                body:@{[ZiggeoConstants getKeyString:PATH]: sourcePath,
-                                       [ZiggeoConstants getKeyString:TOKEN]: token,
-                                       @"stream_token": streamToken
+        [_recorder sendEventWithName:Events.shared.UPLOADING_STARTED
+                                body:@{Keys.shared.PATH: sourcePath,
+                                       Keys.shared.TOKEN: token,
+                                       Keys.shared.STREAM_TOKEN: streamToken
                                      }
         ];
     }
     currentTask = uploadingTask;
 }
 
-- (void)uploadProgressWithPath:(NSString *)sourcePath token:(NSString *)token streamToken:(NSString *)streamToken totalBytesSent:(int)bytesSent totalBytesExpectedToSend:(int)totalBytes {
+- (void)uploadProgressWithPath:(NSString *)sourcePath
+                         token:(NSString *)token
+                   streamToken:(NSString *)streamToken
+                totalBytesSent:(int)bytesSent
+      totalBytesExpectedToSend:(int)totalBytes {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:UPLOAD_PROGRESS]
-                                body:@{[ZiggeoConstants getKeyString:PATH]: sourcePath,
-                                       [ZiggeoConstants getKeyString:TOKEN]: token,
-                                       @"stream_token": streamToken,
-                                       [ZiggeoConstants getKeyString:BYTES_SENT]: @(bytesSent),
-                                       [ZiggeoConstants getKeyString:BYTES_TOTAL]: @(totalBytes)
+        [_recorder sendEventWithName:Events.shared.UPLOAD_PROGRESS
+                                body:@{Keys.shared.PATH: sourcePath,
+                                       Keys.shared.TOKEN: token,
+                                       Keys.shared.STREAM_TOKEN: streamToken,
+                                       Keys.shared.BYTES_SENT: @(bytesSent),
+                                       Keys.shared.BYTES_TOTAL: @(totalBytes)
                                      }
         ];
     }
 }
 
-- (void)uploadFinishedWithPath:(NSString *)sourcePath token:(NSString *)token streamToken:(NSString *)streamToken {
+- (void)uploadFinishedWithPath:(NSString *)sourcePath
+                         token:(NSString *)token
+                   streamToken:(NSString *)streamToken {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:UPLOADED]
-                                body:@{[ZiggeoConstants getKeyString:PATH]: sourcePath,
-                                       [ZiggeoConstants getKeyString:TOKEN]: token,
-                                       @"stream_token": streamToken
+        [_recorder sendEventWithName:Events.shared.UPLOADED
+                                body:@{Keys.shared.PATH: sourcePath,
+                                       Keys.shared.TOKEN: token,
+                                       Keys.shared.STREAM_TOKEN: streamToken
                                      }
         ];
     }
 }
 
-- (void)uploadVerifiedWithPath:(NSString *)sourcePath token:(NSString *)token streamToken:(NSString *)streamToken withResponse:(NSURLResponse *)response error:(NSError *)error json:(NSDictionary *)json {
+- (void)uploadVerifiedWithPath:(NSString *)sourcePath
+                         token:(NSString *)token
+                   streamToken:(NSString *)streamToken
+                  withResponse:(NSURLResponse *)response
+                         error:(NSError *)error
+                          json:(NSDictionary *)json {
     if (error == nil) {
         if (_recorder != nil) {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:VERIFIED]
-                                    body:@{[ZiggeoConstants getKeyString:PATH]: sourcePath,
-                                           [ZiggeoConstants getKeyString:TOKEN]: token,
-                                           @"stream_token": streamToken
+            [_recorder sendEventWithName:Events.shared.VERIFIED
+                                    body:@{Keys.shared.PATH: sourcePath,
+                                           Keys.shared.TOKEN: token,
+                                           Keys.shared.STREAM_TOKEN: streamToken
                                          }
             ];
         }
     } else {
         if (_recorder != nil) {
-            [_recorder sendEventWithName:[ZiggeoConstants getEventString:ERROR] body:@{}];
+            [_recorder sendEventWithName:Events.shared.ERROR body:@{}];
         }
         [self reject:@"ERR_UNKNOWN" message:@"unknown recorder error"];
     }
 }
 
-- (void)uploadProcessingWithPath:(NSString *)sourcePath token:(NSString *)token streamToken:(NSString *)streamToken {
+- (void)uploadProcessingWithPath:(NSString *)sourcePath
+                           token:(NSString *)token
+                     streamToken:(NSString *)streamToken {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:PROCESSING]
-                                body:@{[ZiggeoConstants getKeyString:PATH]: sourcePath,
-                                       [ZiggeoConstants getKeyString:TOKEN]: token,
-                                       @"stream_token": streamToken
+        [_recorder sendEventWithName:Events.shared.PROCESSING
+                                body:@{Keys.shared.PATH: sourcePath,
+                                       Keys.shared.TOKEN: token,
+                                       Keys.shared.STREAM_TOKEN: streamToken
                                      }
         ];
     }
 }
 
-- (void)uploadProcessedWithPath:(NSString *)sourcePath token:(NSString *)token streamToken:(NSString *)streamToken {
+- (void)uploadProcessedWithPath:(NSString *)sourcePath
+                          token:(NSString *)token
+                    streamToken:(NSString *)streamToken {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:PROCESSED]
-                                body:@{[ZiggeoConstants getKeyString:PATH]: sourcePath,
-                                       [ZiggeoConstants getKeyString:TOKEN]: token,
-                                       @"stream_token": streamToken
+        [_recorder sendEventWithName:Events.shared.PROCESSED
+                                body:@{Keys.shared.PATH: sourcePath,
+                                       Keys.shared.TOKEN: token,
+                                       Keys.shared.STREAM_TOKEN: streamToken
                                      }
         ];
     }
     [self resolve:token];
 }
 
-- (void)deleteWithToken:(NSString *)token streamToken:(NSString *)streamToken withResponse:(NSURLResponse *)response error:(NSError *)error json:(NSDictionary *)json {
+- (void)deleteWithToken:(NSString *)token
+            streamToken:(NSString *)streamToken
+           withResponse:(NSURLResponse *)response
+                  error:(NSError *)error
+                   json:(NSDictionary *)json {
 }
 
-- (void)cancelUploadByPath:(NSString *)sourcePath deleteFile:(BOOL)deleteFile {
+- (void)cancelUploadByPath:(NSString *)sourcePath
+                deleteFile:(BOOL)deleteFile {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:CANCELLED_BY_USER]
-                                body:@{@"type": @"Upload"}
+        [_recorder sendEventWithName:Events.shared.CANCELLED_BY_USER
+                                body:@{Keys.shared.TYPE: @"Upload"}
         ];
     }
     [self reject:@"ERR_CANCELLED" message:@"cancelled by the user"];
@@ -218,8 +243,8 @@
 
 - (void)cancelCurrentUpload:(BOOL)deleteFile {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:CANCELLED_BY_USER]
-                                body:@{@"type": @"Upload"}
+        [_recorder sendEventWithName:Events.shared.CANCELLED_BY_USER
+                                body:@{Keys.shared.TYPE: @"Upload"}
         ];
     }
     [self reject:@"ERR_CANCELLED" message:@"cancelled by the user"];
@@ -230,16 +255,16 @@
 
 - (void)uploadSelected:(NSArray *)paths {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:UPLOAD_SELECTED]
-                                body:@{[ZiggeoConstants getKeyString:PATH]: paths}
+        [_recorder sendEventWithName:Events.shared.UPLOAD_SELECTED
+                                body:@{Keys.shared.PATH: paths}
         ];
     }
 }
 
-- (void)uploadCancelledByUser {    
+- (void)uploadCancelledByUser {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:CANCELLED_BY_USER]
-                                body:@{@"type": @"Upload"}
+        [_recorder sendEventWithName:Events.shared.CANCELLED_BY_USER
+                                body:@{Keys.shared.TYPE: @"Upload"}
         ];
     }
     [self reject:@"ERR_CANCELLED" message:@"cancelled by the user"];
@@ -250,14 +275,14 @@
 
 - (void)recorderReady {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:READY_TO_RECORD] body:@{}];
+        [_recorder sendEventWithName:Events.shared.READY_TO_RECORD body:@{}];
     }
 }
 
 - (void)recorderCancelledByUser {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:CANCELLED_BY_USER]
-                                body:@{@"type": @"Recorder"}
+        [_recorder sendEventWithName:Events.shared.CANCELLED_BY_USER
+                                body:@{Keys.shared.TYPE: @"Recorder"}
         ];
     }
     [self reject:@"ERR_CANCELLED" message:@"cancelled by the user"];
@@ -265,57 +290,57 @@
 
 - (void)recorderStarted {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:RECORDING_STARTED] body:@{}];
+       [_recorder sendEventWithName:Events.shared.RECORDING_STARTED body:@{}];
     }
 }
 
 - (void)recorderStopped:(NSString *)path {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:RECORDING_STOPPED]
-                                body:@{[ZiggeoConstants getKeyString:PATH]: path}];
+        [_recorder sendEventWithName:Events.shared.RECORDING_STOPPED
+                                body:@{Keys.shared.PATH: path}];
     }
 }
 
 - (void)recorderCurrentRecordedDurationSeconds:(double)seconds {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:RECORDING_PROGRESS]
-                               body:@{[ZiggeoConstants getKeyString:MILLIS_PASSED]: @(seconds)}];
+       [_recorder sendEventWithName:Events.shared.RECORDING_PROGRESS
+                               body:@{Keys.shared.MILLIS_PASSED: @(seconds)}];
     }
 }
 
 - (void)recorderPlaying {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:PLAYING] body:@{}];
+       [_recorder sendEventWithName:Events.shared.PLAYING body:@{}];
     }
 }
 
 - (void)recorderPaused {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:PAUSED] body:@{}];
+       [_recorder sendEventWithName:Events.shared.PAUSED body:@{}];
     }
 }
 
 - (void)recorderRerecord {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:RERECORD] body:@{}];
+       [_recorder sendEventWithName:Events.shared.RERECORD body:@{}];
     }
 }
 
 - (void)recorderManuallySubmitted {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:MANUALLY_SUBMITTED] body:@{}];
+       [_recorder sendEventWithName:Events.shared.MANUALLY_SUBMITTED body:@{}];
     }
 }
 
 - (void)streamingStarted {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:STREAMING_STARTED] body:@{}];
+       [_recorder sendEventWithName:Events.shared.STREAMING_STARTED body:@{}];
     }
 }
 
 - (void)streamingStopped {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:STREAMING_STOPPED] body:@{}];
+       [_recorder sendEventWithName:Events.shared.STREAMING_STOPPED body:@{}];
     }
 }
 
@@ -330,7 +355,8 @@
     
 }
 
-- (void)faceDetected:(int)faceID rect:(CGRect)rect {
+- (void)faceDetected:(int)faceID
+                rect:(CGRect)rect {
     
 }
 
@@ -339,39 +365,39 @@
 
 - (void)playerPlaying {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:PLAYING] body:@{}];
+       [_recorder sendEventWithName:Events.shared.PLAYING body:@{}];
     }
 }
 
 - (void)playerPaused {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:PAUSED] body:@{}];
+       [_recorder sendEventWithName:Events.shared.PAUSED body:@{}];
     }
 }
 
 - (void)playerEnded {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:ENDED] body:@{}];
+       [_recorder sendEventWithName:Events.shared.ENDED body:@{}];
     }
 }
 
 - (void)playerSeek:(double)positionMillis {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:SEEK]
-                               body:@{[ZiggeoConstants getKeyString:MILLIS]: @(positionMillis)}];
+       [_recorder sendEventWithName:Events.shared.SEEK
+                               body:@{Keys.shared.MILLIS: @(positionMillis)}];
     }
 }
 
 - (void)playerReadyToPlay {
     if (_recorder != nil) {
-       [_recorder sendEventWithName:[ZiggeoConstants getEventString:READY_TO_PLAY] body:@{}];
+       [_recorder sendEventWithName:Events.shared.READY_TO_PLAY body:@{}];
     }
 }
 
 - (void)playerCancelledByUser {
     if (_recorder != nil) {
-        [_recorder sendEventWithName:[ZiggeoConstants getEventString:CANCELLED_BY_USER]
-                                body:@{@"type": @"Player"}
+        [_recorder sendEventWithName:Events.shared.CANCELLED_BY_USER
+                                body:@{Keys.shared.TYPE: @"Player"}
         ];
     }
     [self reject:@"ERR_CANCELLED" message:@"cancelled by the user"];
