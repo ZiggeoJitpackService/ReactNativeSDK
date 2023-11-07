@@ -11,113 +11,13 @@
 #import <ZiggeoMediaSDK/ZiggeoMediaSDK.h>
 #import "ZiggeoRecorderContext.h"
 
-typedef enum {
-    // Camera
-    CAMERA_OPENED,
-    CAMERA_CLOSED,
-
-    // Common
-    LOADED,
-    CANCELLED_BY_USER,
-
-    // Error
-    ERROR,
-
-    // Recorder
-    MANUALLY_SUBMITTED,
-    RECORDING_STARTED,
-    RECORDING_STOPPED,
-    COUNTDOWN,
-    RECORDING_PROGRESS,
-    READY_TO_RECORD,
-    RERECORD,
-
-    // Streaming
-    STREAMING_STARTED,
-    STREAMING_STOPPED,
-
-    // Camera hardware
-    NO_CAMERA,
-    HAS_CAMERA,
-
-    // Mic hardware
-    MIC_HEALTH,
-    NO_MIC,
-    HAS_MIC,
-
-    // Permissions
-    ACCESS_GRANTED,
-    ACCESS_FORBIDDEN,
-
-    // Uploader
-    UPLOADING_STARTED,
-    UPLOAD_PROGRESS,
-    VERIFIED,
-    PROCESSING,
-    PROCESSED,
-    UPLOADED,
-
-    // File selector
-    UPLOAD_SELECTED,
-
-    // Player
-    PLAYING,
-    PAUSED,
-    ENDED,
-    SEEK,
-    READY_TO_PLAY,
-
-    // QR scanner
-    QR_DECODED,
-} ZIGGEO_EVENTS;
-
-typedef enum {
-    BYTES_SENT,
-    BYTES_TOTAL,
-    FILE_NAME,
-    PATH,
-    QR,
-    TOKEN,
-    
-    PERMISSIONS,
-    SOUND_LEVEL,
-    SECONDS_LEFT,
-    MILLIS_PASSED,
-    MILLIS,
-    FILES,
-    VALUE,
-
-    // Streaming
-    MEDIA_TYPES,
-    BLUR_EFFECT,
-    CLIENT_AUTH,
-    SERVER_AUTH,
-    TAGS,
-} Ziggeo_Keys_Type;
-
-#define kZiggeoEventsArray @"CameraOpened", @"CameraClosed", \
-    @"Loaded", @"CancelledByUser", \
-    @"Error", \
-    @"ManuallySubmitted", @"RecordingStarted", @"RecordingStopped", @"Countdown", @"RecordingProgress", @"ReadyToRecord", @"Rerecord", \
-    @"StreamingStarted", @"StreamingStopped", \
-    @"NoCamera", @"HasCamera", \
-    @"MicrophoneHealth", @"NoMicrophone", @"HasMicrophone", \
-    @"AccessGranted", @"AccessForbidden", \
-    @"UploadingStarted", @"UploadProgress", @"Verified", @"Processing", @"Processed", @"Uploaded", \
-    @"UploadSelected", \
-    @"Playing", @"Paused", @"Ended", @"Seek", @"ReadyToPlay", \
-    @"QrDecoded", nil
-
-#define kZiggeoKeysArray @"bytesSent", @"totalBytes", @"fileName", @"path", @"qr", @"token", \
-    @"permissions", @"sound_level", @"seconds_left", @"millis_passed", @"millis", @"files", @"value", \
-    @"media_types", @"blur_effect", @"client_auth", @"server_auth", @"tags", nil
 
 #define kZiggeoConstants  @{  \
-    @"rearCamera": @"rearCamera", \
-    @"frontCamera": @"frontCamera", \
-    @"highQuality": @"highQuality", \
-    @"mediumQuality": @"mediumQuality", \
-    @"lowQuality": @"lowQuality", \
+    @"rearCamera": [NSNumber numberWithInt:0], \
+    @"frontCamera": [NSNumber numberWithInt:1], \
+    @"highQuality": [NSNumber numberWithInt:0], \
+    @"mediumQuality": [NSNumber numberWithInt:1], \
+    @"lowQuality": [NSNumber numberWithInt:2], \
     @"ERR_UNKNOWN": @"ERR_UNKNOWN", \
     @"ERR_DURATION_EXCEEDED": @"ERR_DURATION_EXCEEDED", \
     @"ERR_FILE_DOES_NOT_EXIST": @"ERR_FILE_DOES_NOT_EXIST", \
@@ -128,11 +28,9 @@ typedef enum {
 
 @interface ZiggeoConstants: NSObject
 
-+ (NSString *)getEventString:(ZIGGEO_EVENTS)event;
-+ (NSString *)getKeyString:(Ziggeo_Keys_Type)key;
 + (void)setAppToken:(NSString *)appToken;
-+ (Ziggeo *)sharedZiggeoInstance;
-+ (ZiggeoRecorderContext *)sharedZiggeoRecorderContextInstance;
++ (Ziggeo *)shared;
++ (ZiggeoRecorderContext *)sharedContext;
 
 @end
 

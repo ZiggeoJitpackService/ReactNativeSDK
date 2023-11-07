@@ -8,15 +8,8 @@
 @interface ZCameraView: UIView
 
 @property (nonatomic, assign) NSString *style;
-
 @property (nonatomic, assign) NSString *ref;
-
 @property (nonatomic, assign) ZiggeoRecorder *recorder;
-
-- (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher NS_DESIGNATED_INITIALIZER;
-
-- (void)retake;
-- (void)upload:(NSURL*)fileToUpload;
 
 @property (nonatomic) UIViewController<VideoPreviewProtocol>* videoPreview;
 @property (nonatomic) bool coverSelectorEnabled;
@@ -26,7 +19,7 @@
 @property (nonatomic) bool controlsVisible;
 @property (nonatomic) bool showFaceOutline;
 //@property (nonatomic) bool showLightIndicatorproperty (nonatomic) bool showSoundIndicator;
-@property (nonatomic) ZiggeoRecorderInterfaceConfig *interfaceConfig;
+@property (nonatomic) RecorderInterfaceConfig *interfaceConfig;
 @property (nonatomic) UIImagePickerControllerCameraDevice cameraDevice;
 @property (nonatomic) NSDictionary* extraArgsForCreateVideo;
 @property (nonatomic) double maxRecordedDurationSeconds;
@@ -36,14 +29,12 @@
 //resolution
 @property (nonatomic) int videoWidth;
 @property (nonatomic) int videoHeight;
-@property (nonatomic) int recordingQuality;
+@property (nonatomic) int videoQuality;
 @property (nonatomic) int videoBitrate;
 @property (nonatomic) int audioSampleRate;
 @property (nonatomic) int audioBitrate;
 
--(id) initWithZiggeoApplication:(Ziggeo*)ziggeo;
--(id) initWithZiggeoApplication:(Ziggeo*)ziggeo videoToken:(NSString*)videoToken;
-
+- (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher NS_DESIGNATED_INITIALIZER;
 
 @end;
 

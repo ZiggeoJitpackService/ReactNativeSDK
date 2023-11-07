@@ -17,16 +17,19 @@
 @implementation ImagesContext
 
 - (void)resolve:(NSString *)token {
-    if (_resolveBlock) 
+    if (_resolveBlock) {
         _resolveBlock(token);
+    }
     _resolveBlock = nil;
     _rejectBlock = nil;
     self.images = nil;
 }
 
-- (void)reject:(NSString *)code message:(NSString *)message {
-    if (_rejectBlock) 
+- (void)reject:(NSString *)code
+       message:(NSString *)message {
+    if (_rejectBlock) {
         _rejectBlock(code, message, [NSError errorWithDomain:@"images" code:0 userInfo:@{code:message}]);
+    }
     _resolveBlock = nil;
     _rejectBlock = nil;
     self.images = nil;
@@ -35,23 +38,28 @@
 @end;
 
 
-@implementation RCTImages {
-    
-}
+@implementation RCTImages
 
 static NSString *_appToken;
 static NSString *_serverAuthToken;
 static NSString *_clientAuthToken;
 
-+ (NSString *)appToken { return _appToken; }
-+ (NSString *)serverAuthToken { return _serverAuthToken; }
-+ (NSString *)clientAuthToken { return _clientAuthToken; }
++ (NSString *)appToken {
+    return _appToken;
+}
+
++ (NSString *)serverAuthToken {
+    return _serverAuthToken;
+}
+
++ (NSString *)clientAuthToken {
+    return _clientAuthToken;
+}
 
 
 RCT_EXPORT_MODULE();
 
-- (NSArray<NSString *> *)supportedEvents
-{
+- (NSArray<NSString *> *)supportedEvents {
     return @[
     ];
 }
@@ -60,28 +68,31 @@ RCT_EXPORT_METHOD(setAppToken:(NSString *)token)
 {
     RCTLogInfo(@"application token set: %@", token);
     _appToken = token;
-    ImagesContext *m_context = [[ImagesContext alloc] init];
-    [ZiggeoConstants setAppToken:_appToken];
+    [ZiggeoConstants setAppToken:token];
 }
 
 RCT_EXPORT_METHOD(setServerAuthToken:(NSString *)token)
 {
     RCTLogInfo(@"server auth token set: %@", token);
     _serverAuthToken = token;
+    [[ZiggeoConstants shared].connect setServerAuthToken:token];
 }
 
 RCT_EXPORT_METHOD(setClientAuthToken:(NSString *)token)
 {
     RCTLogInfo(@"server auth token set: %@", token);
     _clientAuthToken = token;
+    [[ZiggeoConstants shared].connect setClientAuthToken:token];
 }
 
 
-RCT_EXPORT_METHOD(index:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(index:(NSDictionary *)map
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] images] index:map
-                                                  callback:^(NSArray *jsonArray, NSError *error) {
+    if ([ZiggeoConstants shared] == nil) return;
+    [[[ZiggeoConstants shared] images] index:map
+                                    callback:^(NSArray *jsonArray, NSError *error) {
         if (error == NULL) {
             resolve(jsonArray);
         } else {
@@ -90,11 +101,13 @@ RCT_EXPORT_METHOD(index:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)res
     }];
 }
 
-RCT_EXPORT_METHOD(destroy:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(destroy:(NSString *)tokenOrKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] images] destroy:tokenOrKey
-                                                    callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+    if ([ZiggeoConstants shared] == nil) return;
+    [[[ZiggeoConstants shared] images] destroy:tokenOrKey
+                                      callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(jsonObject);
         } else {
@@ -103,22 +116,27 @@ RCT_EXPORT_METHOD(destroy:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBloc
     }];
 }
 
-RCT_EXPORT_METHOD(get:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(get:(NSString *)tokenOrKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] images] get:tokenOrKey
-                                                    data:NULL
-                                                callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
+    if ([ZiggeoConstants shared] == nil) return;
+    [[[ZiggeoConstants shared] images] get:tokenOrKey
+                                      data:NULL
+                                  callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
         resolve(content);
     }];
 }
 
-RCT_EXPORT_METHOD(create:(NSString *)file map:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(create:(NSString *)file
+                  map:(NSDictionary *)map
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] images] create:file
-                                                       data:map
-                                                   callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
+    if ([ZiggeoConstants shared] == nil) return;
+    [[[ZiggeoConstants shared] images] create:file
+                                         data:map
+                                     callback:^(NSDictionary *jsonObject, NSURLResponse *response, NSError *error) {
         if (error != NULL) {
             reject(@"ERR_IMAGES", @"image create error", error);
         }
@@ -132,12 +150,15 @@ RCT_EXPORT_METHOD(create:(NSString *)file map:(NSDictionary *)map resolver:(RCTP
     }];
 }
 
-RCT_EXPORT_METHOD(update:(NSString *)token map:(NSDictionary *)map resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(update:(NSString *)token
+                  map:(NSDictionary *)map
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [[[ZiggeoConstants sharedZiggeoInstance] images] update:token
-                                                       data:map
-                                                   callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
+    if ([ZiggeoConstants shared] == nil) return;
+    [[[ZiggeoConstants shared] images] update:token
+                                         data:map
+                                     callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(content);
         } else {
@@ -146,16 +167,20 @@ RCT_EXPORT_METHOD(update:(NSString *)token map:(NSDictionary *)map resolver:(RCT
     }];
 }
 
-RCT_EXPORT_METHOD(source:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(source:(NSString *)tokenOrKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    resolve([[[ZiggeoConstants sharedZiggeoInstance] images] getImageUrl:tokenOrKey]);
+    if ([ZiggeoConstants shared] == nil) return;
+    resolve([[[ZiggeoConstants shared] images] getImageUrl:tokenOrKey]);
 }
 
-RCT_EXPORT_METHOD(getImageUrl:(NSString *)tokenOrKey resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(getImageUrl:(NSString *)tokenOrKey
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    resolve([[[ZiggeoConstants sharedZiggeoInstance] images] getImageUrl:tokenOrKey]);
+    if ([ZiggeoConstants shared] == nil) return;
+    resolve([[[ZiggeoConstants shared] images] getImageUrl:tokenOrKey]);
 }
 
 @end
