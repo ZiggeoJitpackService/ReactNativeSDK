@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		143E094226E259DB009FBC6B /* ZiggeoRecorderContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 143E094126E259DA009FBC6B /* ZiggeoRecorderContext.m */; };
-		1494B82026F1975000DBD19F /* ZiggeoConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1494B81F26F1975000DBD19F /* ZiggeoConstants.m */; };
 		14B77D66274F2A7100C98BD7 /* RCTAudios.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B77D61274F2A7100C98BD7 /* RCTAudios.m */; };
 		14B77D67274F2A7100C98BD7 /* RCTImages.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B77D63274F2A7100C98BD7 /* RCTImages.m */; };
 		14B77D68274F2A7100C98BD7 /* RCTVideos.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B77D65274F2A7100C98BD7 /* RCTVideos.m */; };
@@ -20,6 +19,13 @@
 		844A42EC2617607E00FFC8DA /* ZCameraViewManagerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 844A42EA2617607E00FFC8DA /* ZCameraViewManagerManager.m */; };
 		8462CE5E26051C1C00FAE178 /* ZCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8462CE5D26051C1C00FAE178 /* ZCameraView.m */; };
 		D8B6A7DB28E163EB008165ED /* ZiggeoQRScannerContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B6A7D928E163EA008165ED /* ZiggeoQRScannerContext.m */; };
+		D8F3A1A62AE6B80D0002AD39 /* ConversionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F3A1982AE6B80D0002AD39 /* ConversionUtil.m */; };
+		D8F3A1A72AE6B80D0002AD39 /* Events.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F3A19B2AE6B80D0002AD39 /* Events.m */; };
+		D8F3A1A82AE6B80D0002AD39 /* Keys.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F3A19D2AE6B80D0002AD39 /* Keys.m */; };
+		D8F3A1A92AE6B80D0002AD39 /* RecorderKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F3A19F2AE6B80D0002AD39 /* RecorderKeys.m */; };
+		D8F3A1AA2AE6B80D0002AD39 /* ZiggeoConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F3A1A12AE6B80D0002AD39 /* ZiggeoConstants.m */; };
+		D8F3A1AB2AE6B80D0002AD39 /* ThemeKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F3A1A22AE6B80D0002AD39 /* ThemeKeys.m */; };
+		D8F3A1AC2AE6B80D0002AD39 /* FileSelectorKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F3A1A42AE6B80D0002AD39 /* FileSelectorKeys.m */; };
 		FA441F381F2A562B00E51295 /* RCTZiggeoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = FA441F351F2A562B00E51295 /* RCTZiggeoPlayer.m */; };
 		FA441F391F2A562B00E51295 /* RCTZiggeoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = FA441F371F2A562B00E51295 /* RCTZiggeoRecorder.m */; };
 /* End PBXBuildFile section */
@@ -40,8 +46,6 @@
 		134814201AA4EA6300B7C361 /* libRNReactNativeZiggeoLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNReactNativeZiggeoLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		143E094026E259DA009FBC6B /* ZiggeoRecorderContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiggeoRecorderContext.h; sourceTree = "<group>"; };
 		143E094126E259DA009FBC6B /* ZiggeoRecorderContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiggeoRecorderContext.m; sourceTree = "<group>"; };
-		1494B81E26F1975000DBD19F /* ZiggeoConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiggeoConstants.h; sourceTree = "<group>"; };
-		1494B81F26F1975000DBD19F /* ZiggeoConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiggeoConstants.m; sourceTree = "<group>"; };
 		14B77D60274F2A7100C98BD7 /* RCTAudios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAudios.h; sourceTree = "<group>"; };
 		14B77D61274F2A7100C98BD7 /* RCTAudios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAudios.m; sourceTree = "<group>"; };
 		14B77D62274F2A7100C98BD7 /* RCTImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTImages.h; sourceTree = "<group>"; };
@@ -64,6 +68,20 @@
 		8462CE5D26051C1C00FAE178 /* ZCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCameraView.m; sourceTree = "<group>"; };
 		D8B6A7D928E163EA008165ED /* ZiggeoQRScannerContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiggeoQRScannerContext.m; sourceTree = "<group>"; };
 		D8B6A7DA28E163EA008165ED /* ZiggeoQRScannerContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiggeoQRScannerContext.h; sourceTree = "<group>"; };
+		D8F3A1982AE6B80D0002AD39 /* ConversionUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversionUtil.m; sourceTree = "<group>"; };
+		D8F3A1992AE6B80D0002AD39 /* Events.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
+		D8F3A19A2AE6B80D0002AD39 /* ConversionUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversionUtil.h; sourceTree = "<group>"; };
+		D8F3A19B2AE6B80D0002AD39 /* Events.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Events.m; sourceTree = "<group>"; };
+		D8F3A19C2AE6B80D0002AD39 /* RecorderKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecorderKeys.h; sourceTree = "<group>"; };
+		D8F3A19D2AE6B80D0002AD39 /* Keys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Keys.m; sourceTree = "<group>"; };
+		D8F3A19E2AE6B80D0002AD39 /* Keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Keys.h; sourceTree = "<group>"; };
+		D8F3A19F2AE6B80D0002AD39 /* RecorderKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecorderKeys.m; sourceTree = "<group>"; };
+		D8F3A1A02AE6B80D0002AD39 /* ZiggeoConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZiggeoConstants.h; sourceTree = "<group>"; };
+		D8F3A1A12AE6B80D0002AD39 /* ZiggeoConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZiggeoConstants.m; sourceTree = "<group>"; };
+		D8F3A1A22AE6B80D0002AD39 /* ThemeKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeKeys.m; sourceTree = "<group>"; };
+		D8F3A1A32AE6B80D0002AD39 /* FileSelectorKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSelectorKeys.h; sourceTree = "<group>"; };
+		D8F3A1A42AE6B80D0002AD39 /* FileSelectorKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSelectorKeys.m; sourceTree = "<group>"; };
+		D8F3A1A52AE6B80D0002AD39 /* ThemeKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeKeys.h; sourceTree = "<group>"; };
 		FA441F341F2A562B00E51295 /* RCTZiggeoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTZiggeoPlayer.h; sourceTree = "<group>"; };
 		FA441F351F2A562B00E51295 /* RCTZiggeoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTZiggeoPlayer.m; sourceTree = "<group>"; };
 		FA441F361F2A562B00E51295 /* RCTZiggeoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTZiggeoRecorder.h; sourceTree = "<group>"; };
@@ -92,8 +110,20 @@
 		1494B81D26F1975000DBD19F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				1494B81E26F1975000DBD19F /* ZiggeoConstants.h */,
-				1494B81F26F1975000DBD19F /* ZiggeoConstants.m */,
+				D8F3A19A2AE6B80D0002AD39 /* ConversionUtil.h */,
+				D8F3A1982AE6B80D0002AD39 /* ConversionUtil.m */,
+				D8F3A1992AE6B80D0002AD39 /* Events.h */,
+				D8F3A19B2AE6B80D0002AD39 /* Events.m */,
+				D8F3A1A32AE6B80D0002AD39 /* FileSelectorKeys.h */,
+				D8F3A1A42AE6B80D0002AD39 /* FileSelectorKeys.m */,
+				D8F3A19E2AE6B80D0002AD39 /* Keys.h */,
+				D8F3A19D2AE6B80D0002AD39 /* Keys.m */,
+				D8F3A19C2AE6B80D0002AD39 /* RecorderKeys.h */,
+				D8F3A19F2AE6B80D0002AD39 /* RecorderKeys.m */,
+				D8F3A1A52AE6B80D0002AD39 /* ThemeKeys.h */,
+				D8F3A1A22AE6B80D0002AD39 /* ThemeKeys.m */,
+				D8F3A1A02AE6B80D0002AD39 /* ZiggeoConstants.h */,
+				D8F3A1A12AE6B80D0002AD39 /* ZiggeoConstants.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -146,8 +176,8 @@
 				8462CE5D26051C1C00FAE178 /* ZCameraView.m */,
 				844A42EB2617607E00FFC8DA /* ZCameraViewManagerManager.h */,
 				844A42EA2617607E00FFC8DA /* ZCameraViewManagerManager.m */,
-				58603D35859263FA0BCC6D0E /* RCTZCameraModule.m */,
 				58603EF5C18338BF365E9D35 /* RCTZCameraModule.h */,
+				58603D35859263FA0BCC6D0E /* RCTZCameraModule.m */,
 			);
 			path = CameraView;
 			sourceTree = "<group>";
@@ -232,16 +262,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				843872862632EEAD00520AB0 /* ZVideoViewManagerManager.m in Sources */,
+				D8F3A1AB2AE6B80D0002AD39 /* ThemeKeys.m in Sources */,
 				D8B6A7DB28E163EB008165ED /* ZiggeoQRScannerContext.m in Sources */,
 				14B77D66274F2A7100C98BD7 /* RCTAudios.m in Sources */,
+				D8F3A1A62AE6B80D0002AD39 /* ConversionUtil.m in Sources */,
 				844A42EC2617607E00FFC8DA /* ZCameraViewManagerManager.m in Sources */,
+				D8F3A1A82AE6B80D0002AD39 /* Keys.m in Sources */,
+				D8F3A1AA2AE6B80D0002AD39 /* ZiggeoConstants.m in Sources */,
 				FA441F391F2A562B00E51295 /* RCTZiggeoRecorder.m in Sources */,
 				843872882632EEAD00520AB0 /* RCTZVideoViewModule.m in Sources */,
+				D8F3A1AC2AE6B80D0002AD39 /* FileSelectorKeys.m in Sources */,
 				14B77D6C274F2CA200C98BD7 /* RCTContactUs.m in Sources */,
+				D8F3A1A72AE6B80D0002AD39 /* Events.m in Sources */,
 				8462CE5E26051C1C00FAE178 /* ZCameraView.m in Sources */,
 				14B77D68274F2A7100C98BD7 /* RCTVideos.m in Sources */,
 				FA441F381F2A562B00E51295 /* RCTZiggeoPlayer.m in Sources */,
-				1494B82026F1975000DBD19F /* ZiggeoConstants.m in Sources */,
+				D8F3A1A92AE6B80D0002AD39 /* RecorderKeys.m in Sources */,
 				14B77D67274F2A7100C98BD7 /* RCTImages.m in Sources */,
 				58603C1F09BE7D4B2D1EBED8 /* RCTZCameraModule.m in Sources */,
 				843872872632EEAD00520AB0 /* RCTZiggeoVideoView.m in Sources */,

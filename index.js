@@ -48,7 +48,6 @@ export default {
     sendEmailToSupport() {
         ContactUs.sendEmailToSupport();
     },
-
     setSensorManager: function (map) {
         ZiggeoRecorder.setSensorManager(map);
     },
@@ -56,10 +55,7 @@ export default {
     // ZiggeoRecorder
     setRecorderCacheConfig: function (map) {
         ZiggeoRecorder.setRecorderCacheConfig(map);
-    },
-    setRecorderInterfaceConfig: function (map) {
-        ZiggeoRecorder.setRecorderInterfaceConfig(map);
-    },
+    },     
     setUploadingConfig: function (map) {
         ZiggeoRecorder.setUploadingConfig(map);
     },
@@ -160,9 +156,6 @@ export default {
     playAudios: async function (token: string[]) {
         ZiggeoRecorder.playAudios(token);
     },
-    showImage: async function (token: string) {
-        ZiggeoRecorder.showImage(token);
-    },
     showImages: async function (tokens: string[]) {
         ZiggeoRecorder.showImages(tokens);
     },
@@ -207,9 +200,6 @@ export default {
     },
     setThemeArgsForPlayer: function (map) {
         ZiggeoPlayer.setThemeArgsForPlayer(map);
-    },
-    setPlayerCacheConfig: function (map) {
-        ZiggeoPlayer.setPlayerCacheConfig(map);
     },
     setAdsURL: function (url) {
         ZiggeoPlayer.setAdsURL(url);

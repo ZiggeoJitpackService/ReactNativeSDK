@@ -31,15 +31,15 @@ static void * const RCTZiggeoVideoViewKVOContext = (void*)&RCTZiggeoVideoViewKVO
 - (void)setVideoToken:(NSString *)token {
     NSLog(@"__appToken: %@", [RCTVideos appToken]);
 
-    if ([ZiggeoConstants sharedZiggeoInstance] == nil) return;
-    [ZiggeoConstants sharedZiggeoInstance].connect.serverAuthToken = [RCTVideos serverAuthToken];
-    [ZiggeoConstants sharedZiggeoInstance].connect.clientAuthToken = [RCTVideos clientAuthToken];
+    if ([ZiggeoConstants shared] == nil) return;
+    [ZiggeoConstants shared].connect.serverAuthToken = [RCTVideos serverAuthToken];
+    [ZiggeoConstants shared].connect.clientAuthToken = [RCTVideos clientAuthToken];
 
-    [ZiggeoConstants sharedZiggeoInstance].token = [RCTVideos appToken];
-    [ZiggeoConstants sharedZiggeoInstance].connect.serverAuthToken = [RCTVideos serverAuthToken];
-    [ZiggeoConstants sharedZiggeoInstance].connect.clientAuthToken = [RCTVideos clientAuthToken];
+    [ZiggeoConstants shared].token = [RCTVideos appToken];
+    [ZiggeoConstants shared].connect.serverAuthToken = [RCTVideos serverAuthToken];
+    [ZiggeoConstants shared].connect.clientAuthToken = [RCTVideos clientAuthToken];
 
-    ZiggeoPlayer* player = [[ZiggeoPlayer alloc] initWithZiggeoApplication:[ZiggeoConstants sharedZiggeoInstance] videoToken:token];
+    ZiggeoPlayer* player = [[ZiggeoPlayer alloc] initWithZiggeoApplication:[ZiggeoConstants shared] videoToken:token];
 
     if (lastPlayerItem != nil) {
         [lastPlayerItem removeObserver:self forKeyPath:@"status" context:RCTZiggeoVideoViewKVOContext];
@@ -66,7 +66,10 @@ static void * const RCTZiggeoVideoViewKVOContext = (void*)&RCTZiggeoVideoViewKVO
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey, id> *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey, id> *)change
+                       context:(void *)context {
     // Only handle observations for the playerItemContext
     if (context != RCTZiggeoVideoViewKVOContext) {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
