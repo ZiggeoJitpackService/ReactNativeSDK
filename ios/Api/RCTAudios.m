@@ -92,9 +92,9 @@ RCT_EXPORT_METHOD(index:(NSDictionary *)map
 {
     if ([ZiggeoConstants shared] == nil) return;
     [[[ZiggeoConstants shared] audios] index:map
-                                    callback:^(NSArray *jsonArray, NSError *error) {
+                              stringCallback:^(NSString *string, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
-            resolve(jsonArray);
+            resolve(string);
         } else {
             reject(@"ERR_AUDIOS", @"audio index error", error);
         }
@@ -123,7 +123,7 @@ RCT_EXPORT_METHOD(get:(NSString *)tokenOrKey
     if ([ZiggeoConstants shared] == nil) return;
     [[[ZiggeoConstants shared] audios] get:tokenOrKey
                                       data:NULL
-                                  callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
+                                  callback:^(Audio *content, NSURLResponse *response, NSError *error) {
         resolve(content);
     }];
 }
@@ -158,7 +158,7 @@ RCT_EXPORT_METHOD(update:(NSString *)token
     if ([ZiggeoConstants shared] == nil) return;
     [[[ZiggeoConstants shared] audios] update:token
                                          data:map
-                                     callback:^(ContentModel *content, NSURLResponse *response, NSError *error) {
+                                     callback:^(Audio *content, NSURLResponse *response, NSError *error) {
         if (error == NULL) {
             resolve(content);
         } else {
